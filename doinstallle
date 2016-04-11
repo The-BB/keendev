@@ -9,25 +9,26 @@ URL=http://ndm.zyxmon.org/binaries/keenle/installer
 
 case $(mount | grep 'on /opt' | cut -d ' ' -f 5) in
     ext2|ext3)
-	echo 'Partition is OK.'
+	echo 'Раздел годен.'
     ;;
     *ntfs*)
-	echo 'NTFS partition! owner:group attributes may not be supported.'
-	echo 'Please, use ext2/ext3 if something goes wrong.'
+	echo 'Раздел NTFS! атрибуты пользователь:группа могут не поддерживаться.'
+	echo 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
     ;;
     *hfs*)
-	echo 'HFS partition is not tested.'
-	echo 'Please, use ext2/ext3 if something goes wrong.'
+	echo 'Раздел с HFS! (не тестировалось).'
+	echo 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
     ;;
     *)
-        echo 'Please use ext2/ext3 formatted storage. Aborting...'
+        echo 'Используйте накопитель с файловой системой ext2/ext3. Отменяем...'
 	exit 1
     ;;
 esac
 
-echo '[1/4] Starting Entware-ng deployment...'
+echo '[1/4] Начало установки Entware-Keenetic...'
 dots.sh &
-# This is for opkg only. The other folders will be created from zyx-opt package
+# This is for opkg only. The other folders will be created from opt-ndmsv2 package
+# Только для opkg. Остальные папки будут созданы пакетом opt-ndmsv2
 for folder in lib/opkg tmp var/lock; do
     mkdir -p /opt/$folder
 done
@@ -39,12 +40,12 @@ wget $URL/opkg -O /opt/bin/opkg
 chmod +x /opt/bin/opkg
 wget $URL/opkg.conf -O /opt/etc/opkg.conf
 
-echo '[2/4] Basic packages installation...'
+echo '[2/4] Установка базовых пакетов...'
 opkg update
 opkg install opt-ndmsv2 dropbear
 ldconfig > /dev/null 2>&1
 
-echo '[3/4] Generating SSH keys...'
+echo '[3/4] Генерация SSH-ключей...'
 dbkey () {
 # $1 is a key type [rsa|ecdsa]
     rm /opt/etc/dropbear/dropbear_${1}_host_key
@@ -53,13 +54,13 @@ dbkey () {
 	sleep 2
 	echo -n '.'
     done
-    echo 'done.'
+    echo 'выполнено.'
 }
 dbkey rsa
 dbkey ecdsa
 
-echo '[4/4] Entware-ng installed! Starting dropbear...'
+echo '[4/4] Entware-Keenetic установлен! Запуск dropbear...'
 dropbear -p 22 -a
 
-echo 'Log on at root:zyxel@my.keenetic.net to start new SSH session.'
+echo 'Можно запускать новую SSH-сессию (логин:пароль -> root:zyxel).'
 rm $0
