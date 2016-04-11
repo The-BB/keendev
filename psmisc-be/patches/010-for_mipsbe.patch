@@ -1,0 +1,11 @@
+--- a/src/peekfd.c
++++ b/src/peekfd.c
+@@ -68,7 +68,7 @@
+ 	#define REG_PARAM2 ARM_r1
+ 	#define REG_PARAM3 ARM_r2
+ #elif defined(MIPS)
+-#ifndef MIPSEL
++#ifndef MIPS
+ #error only little endian supported
+ #endif
+ 	#define REG_ORIG_ACCUM regs[3]
