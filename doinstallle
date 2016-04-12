@@ -65,7 +65,7 @@ dbkey () {
 dbkey rsa
 dbkey ecdsa
 
-logger '[5/5] Entware-Keenetic установлен! Запуск dropbear...'
+logger '[5/5] Установка Entware-Keenetic завершена! Запуск dropbear...'
 dropbear -p 22 -a
 
 logger 'Можно запускать новую SSH-сессию (логин:пароль -> root:zyxel).'
