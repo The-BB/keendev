@@ -2,6 +2,8 @@
 
 export TZ=`cat /etc/TZ | tail -n 1`
 export PATH=/opt/sbin:/opt/bin:$PATH
+export LANG='ru_RU.UTF-8'
+export LC_ALL='ru_RU.UTF-8'
 unset LD_LIBRARY_PATH
 unset LD_PRELOAD
 
@@ -9,26 +11,26 @@ URL=http://ndm.zyxmon.org/binaries/keenle/installer
 
 case $(mount | grep 'on /opt' | cut -d ' ' -f 5) in
     ext2|ext3)
-	echo 'Раздел годен.'
+	logger 'Раздел пригоден для установки.'
     ;;
     *ntfs*)
-	echo 'Раздел NTFS! атрибуты пользователь:группа могут не поддерживаться.'
-	echo 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
+	logger 'Раздел NTFS! атрибуты пользователь:группа могут не поддерживаться.'
+	logger 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
     ;;
     *hfs*)
-	echo 'Раздел с HFS! (не тестировалось).'
-	echo 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
+	logger 'Раздел с HFS! (!не тестировалось!).'
+	logger 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
     ;;
     *)
-        echo 'Используйте накопитель с файловой системой ext2/ext3. Отменяем...'
+        logger 'Используйте накопитель с файловой системой ext2/ext3. Отменяем...'
 	exit 1
     ;;
 esac
 
-echo '[1/4] Начало установки Entware-Keenetic...'
+logger '[1/5] Начало установки Entware-Keenetic...'
 dots.sh &
 # This is for opkg only. The other folders will be created from opt-ndmsv2 package
-# Только для opkg. Остальные папки будут созданы пакетом opt-ndmsv2
+# Только для opkg. Остальные папки будут созданы пакетом opt-ndmsv1/2
 for folder in lib/opkg tmp var/lock; do
     mkdir -p /opt/$folder
 done
@@ -40,12 +42,16 @@ wget $URL/opkg -O /opt/bin/opkg
 chmod +x /opt/bin/opkg
 wget $URL/opkg.conf -O /opt/etc/opkg.conf
 
-echo '[2/4] Установка базовых пакетов...'
+logger '[2/5] Установка базовых пакетов...'
 opkg update
-opkg install opt-ndmsv2 dropbear
+opkg install opt-ndmsv2 dropbear ndmq
 ldconfig > /dev/null 2>&1
 
-echo '[3/4] Генерация SSH-ключей...'
+logger '[3/5] Настройка скрипта запуска для прошивки NDMS...'
+ndmq -p 'opkg initrc /opt/etc/init.d/rc.unslung'
+ndmq -p 'system configuration save'
+
+logger '[4/5] Генерация SSH-ключей...'
 dbkey () {
 # $1 is a key type [rsa|ecdsa]
     rm /opt/etc/dropbear/dropbear_${1}_host_key
@@ -54,13 +60,13 @@ dbkey () {
 	sleep 2
 	echo -n '.'
     done
-    echo 'выполнено.'
+    logger 'выполнено.'
 }
 dbkey rsa
 dbkey ecdsa
 
-echo '[4/4] Entware-Keenetic установлен! Запуск dropbear...'
+logger '[5/5] Entware-Keenetic установлен! Запуск dropbear...'
 dropbear -p 22 -a
 
-echo 'Можно запускать новую SSH-сессию (логин:пароль -> root:zyxel).'
+logger 'Можно запускать новую SSH-сессию (логин:пароль -> root:zyxel).'
 rm $0
