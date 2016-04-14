@@ -1,0 +1,86 @@
+.loader {
+  background-image: url(/i/ajax-loader.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.hidden {
+    display: none;
+}
+
+textarea.ssh {
+	margin: 0.05em .25em 0.05em 0;
+	vertical-align: middle;
+	font-family: courier;
+	font-size: 14px;
+}
+
+textarea.shell {
+	margin: 0.05em .25em 0.05em 0;
+	vertical-align: middle;
+	background: #202120;
+	color: #cbcbcb;
+	font-family: courier;
+	font-size: 11px;
+}
+
+textarea {
+	margin: 0.05em .25em 0.05em 0;
+	vertical-align: middle;
+	font-family: courier;
+	font-size: 14px;
+}
+
+textarea {
+	border-width: 1px;
+}
+
+th.footer, td.footer {
+	text-align: center;
+	white-space: nowrap;
+	border: 0px dashed;
+	padding: 0.15em .4em !important;
+}
+
+th.left {
+	white-space: nowrap;
+	border-bottom-width: 1px;
+}
+
+th.left {
+	text-align: left;
+}
+
+th.left {
+	padding: 0.15em .4em !important;
+}
+
+th.left {
+	width: 1em;
+}
+
+th.left {
+	font-weight: bold;
+}
+
+th.left {
+	background: #7897c0 url('/ext/i/keenetic/tabtitle_bg.gif');
+	color: #ffffff;
+}
+
+th.left a {
+	color: inherit;
+	text-decoration: none;
+}
+
+th.left a {
+	color: #ddeeff !important;
+}
+
+td.check {
+	text-align: left;
+	white-space: nowrap;
+	border: 0px dashed;
+	padding: 0.15em .4em !important;
+	background: #657cb2;
+}

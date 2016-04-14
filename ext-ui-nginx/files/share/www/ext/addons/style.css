@@ -1,0 +1,134 @@
+.clear {
+	clear: both;
+}
+
+.hidden {
+	display: none;
+}
+
+#content {
+  min-height: 500px;
+}
+
+.list-item {
+  line-height: 20px;
+  clear: both;
+  padding: 0 10px;
+  height: 20px;
+}
+
+.list-item-even { background: #E7E8E9; }
+.list-item-odd { background: #F4F5F6; }
+.tab .list-item-hover { background: #BFC0C1; }
+
+.list-item .installed_version,
+.list-item .version,
+.list-item .description,
+.list-item .name {
+  display: block;
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list-item .actions {
+  display: block;
+  float: right;
+}  
+
+.list-item .actions span{
+   text-decoration: underline;
+   cursor: pointer;
+   margin-left:5px;
+   margin-top: 2px;
+   float: right;
+}
+  
+
+.list-item .name {
+  width: 180px;
+  margin-right: 10px;
+}
+
+.list-item .installed_version,
+.list-item .version {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.list-item .description {
+  width: 270px;
+  margin-right: 10px;
+}
+
+
+.list-item .installed_version span {
+	float: left;
+	margin-top: 2px;
+}
+
+.badge {
+  background: #FF0102;
+  border: 1px solid white;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -khtml-border-radius: 8px;
+  border-radius: 8px;    
+  color: white;
+  padding: 0 5px;
+  font-size:10px;
+  height:14px;
+  line-height: 14px;
+  position: relative;
+  top: -8px;
+}
+
+.toolbar {
+	margin-bottom: 10px;
+}
+
+.search {
+	float: right;
+	position: relative;
+}
+#search_input {
+	margin: 0;
+	height: 16px;
+	border: 1px solid #000000;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	-khtml-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0px 2px 5px 0px #A2A2A2;
+	-moz-box-shadow: inset 0px 2px 5px 0px #A2A2A2;
+	box-shadow: inset 0px 2px 5px 0px #A2A2A2; 	
+	padding: 3px 20px 3px 20px;	
+	width: 200px;
+}
+
+#search_icon {
+	position: absolute;	
+	top: 4px;
+	left: 5px;
+	opacity: 0.5;
+}
+
+#search_clear {
+	position: absolute;	
+	top: 4px;
+	right: 5px;
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#divLoading
+{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 60px;
+	width: 60px;
+	background-color: transparent;
+	background: url(img/loading.gif) no-repeat 0px 0px;
+}

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export PHP_FCGI_CHILDREN=''
+
+ENABLED=yes
+PROCS=php-fcgi
+ARGS="-b /opt/var/run/php-fcgi.sock &"
+PREARGS=""
+DESC=$PROCS
+PATH=/opt/bin:/opt/sbin:/opt/usr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+. /opt/etc/init.d/rc.func

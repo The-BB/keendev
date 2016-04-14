@@ -1,0 +1,11 @@
+select {
+	padding: 0 2px;
+}
+
+optgroup, option {
+	padding-right: 4px;
+}
+
+optgroup, option, select {
+	background: inherit !important;
+}
