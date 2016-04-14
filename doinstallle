@@ -11,26 +11,28 @@ URL=http://ndm.zyxmon.org/binaries/keenle/installer
 
 case $(mount | grep 'on /opt' | cut -d ' ' -f 5) in
     ext2|ext3)
-	logger 'Раздел пригоден для установки.'
+	logger 'Info: Раздел пригоден для установки.'
     ;;
     *ntfs*)
-	logger 'Раздел NTFS! атрибуты пользователь:группа могут не поддерживаться.'
+	logger 'Info: Раздел NTFS! атрибуты "пользователь:группа" могут не поддерживаться.'
 	logger 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
     ;;
     *hfs*)
-	logger 'Раздел с HFS! (!не тестировалось!).'
+	logger 'Info: Раздел с HFS! (!не тестировалось!).'
 	logger 'При возникновении проблем, используйте накопитель с файловой системой ext2/ext3.'
     ;;
     *)
-        logger 'Используйте накопитель с файловой системой ext2/ext3. Отменяем...'
+        logger 'Critical error: Используйте накопитель с файловой системой ext2/ext3. Отменяем...'
 	exit 1
     ;;
 esac
 
-logger '[1/5] Начало установки Entware-Keenetic...'
-dots.sh &
+logger '[1/5] Начало развёртывания системы Entware-Keenetic...'
+
 # This is for opkg only. The other folders will be created from opt-ndmsv2 package
 # Только для opkg. Остальные папки будут созданы пакетом opt-ndmsv1/2
+logger 'Info: Создание папок...'
+
 for folder in lib/opkg tmp var/lock; do
     mkdir -p /opt/$folder
 done
@@ -38,16 +40,21 @@ done
 # Fix for multiuser environment
 chmod 777 /opt/tmp
 
-wget $URL/opkg -O /opt/bin/opkg
-chmod +x /opt/bin/opkg
-wget $URL/opkg.conf -O /opt/etc/opkg.conf
-
-logger '[2/5] Установка базовых пакетов...'
+logger '[2/5] Загрузка и установка базовых пакетов...'
 opkg update
 opkg install opt-ndmsv2 dropbear ndmq
+
+if [ $? -eq 0 ] ; then
+    logger 'Info: Установка пакетов прошла успешно! Продолжаем...'
+  else
+    logger 'Critical error: Ошибка загрузки? Нет соединения с интернет? Сервер не работает?'
+    logger 'Выход из установки...'
+    exit 1
+fi
+
 ldconfig > /dev/null 2>&1
 
-logger '[3/5] Настройка скрипта запуска для прошивки NDMS...'
+logger '[3/5] Настройка сценария запуска для прошивки NDMS...'
 ndmq -p 'opkg initrc /opt/etc/init.d/rc.unslung'
 ndmq -p 'system configuration save'
 
@@ -60,7 +67,8 @@ dbkey () {
 	sleep 2
 	echo -n '.'
     done
-    logger 'выполнено.'
+    logger "Info: ключ $1 создан"
+
 }
 dbkey rsa
 dbkey ecdsa
@@ -68,5 +76,6 @@ dbkey ecdsa
 logger '[5/5] Установка Entware-Keenetic завершена! Запуск dropbear...'
 dropbear -p 22 -a
 
-logger 'Можно запускать новую SSH-сессию (логин:пароль -> root:zyxel).'
+logger 'Готово!!!'
+logger 'Можно открыть SSH-сессию для соединения с устройством (логин:пароль -> root:zyxel).'
 rm $0
