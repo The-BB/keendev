@@ -18,11 +18,11 @@ cp -r $BUILD_DIR/busybox-*/ipkg-install/opt $ROOT_DIR
 
 # This script will seed some dots to terminal.
 # Otherwise, f\w will kill installation after 8 seconds of silence
-cp $SCRIPT_DIR/dots.sh $ROOT_DIR/opt/bin
-chmod +x $ROOT_DIR/opt/bin/dots.sh
+#cp $SCRIPT_DIR/dots.sh $ROOT_DIR/opt/bin
+#chmod +x $ROOT_DIR/opt/bin/dots.sh
 
 # Adding dummie SSH keys to avoid dropbear post-install timeout
-mkdir -p $ROOT_DIR/opt/etc/dropbear
+#mkdir -p $ROOT_DIR/opt/etc/dropbear
 touch $ROOT_DIR/opt/etc/dropbear/dropbear_ecdsa_host_key
 touch $ROOT_DIR/opt/etc/dropbear/dropbear_rsa_host_key
 
@@ -30,6 +30,13 @@ touch $ROOT_DIR/opt/etc/dropbear/dropbear_rsa_host_key
 mkdir -p $ROOT_DIR/opt/etc/init.d
 cp $SCRIPT_DIR/doinstallle $ROOT_DIR/opt/etc/init.d/doinstall
 chmod +x $ROOT_DIR/opt/etc/init.d/doinstall
+
+# Adding opkg&opkg.conf
+cp -r $BUILD_DIR/opkg-*/opkg-*/ipkg-keenle/opkg/opt $ROOT_DIR
+cp -r $SCRIPT_DIR/opkg-keenle.conf $ROOT_DIR/opt/etc/opkg.conf
+
+# copy strip version
+cp -fr $BUILD_DIR/busybox-*/ipkg-keenle/busybox/opt $ROOT_DIR
 
 # Packing installer
 [ -f $INSTALLER ] && rm $INSTALLER
