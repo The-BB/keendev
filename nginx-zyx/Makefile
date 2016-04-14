@@ -1,0 +1,253 @@
+#
+# Copyright (C) 2012-2015 OpenWrt.org
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+#
+
+include $(TOPDIR)/rules.mk
+
+PKG_NAME:=nginx
+PKG_VERSION:=1.9.12
+PKG_RELEASE:=1
+
+PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
+PKG_SOURCE_URL:=http://nginx.org/download/
+PKG_MD5SUM:=0afe4a7e589a0de43b7b54aa055a4351
+PKG_MAINTAINER:=Thomas Heil <heil@terminal-consulting.de>
+PKG_LICENSE:=2-clause BSD-like license
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/nginx-zyx-$(PKG_VERSION)
+
+PKG_UNPACK=$(HOST_TAR) -C $(PKG_BUILD_DIR) --strip-components=1 -xzf $(DL_DIR)/$(PKG_SOURCE)
+
+PKG_BUILD_PARALLEL:=1
+PKG_INSTALL:=1
+
+PKG_CONFIG_DEPENDS := \
+	CONFIG_NGINX_SSL \
+	CONFIG_NGINX_DAV \
+	CONFIG_NGINX_FLV \
+	CONFIG_NGINX_STUB_STATUS \
+	CONFIG_NGINX_HTTP_CHARSET \
+	CONFIG_NGINX_HTTP_GZIP \
+	CONFIG_NGINX_HTTP_SSI \
+	CONFIG_NGINX_HTTP_USERID \
+	CONFIG_NGINX_HTTP_ACCESS \
+	CONFIG_NGINX_HTTP_AUTH_BASIC \
+	CONFIG_NGINX_HTTP_AUTOINDEX \
+	CONFIG_NGINX_HTTP_GEO \
+	CONFIG_NGINX_HTTP_MAP \
+	CONFIG_NGINX_HTTP_SPLIT_CLIENTS \
+	CONFIG_NGINX_HTTP_REFERER \
+	CONFIG_NGINX_HTTP_REWRITE \
+	CONFIG_NGINX_HTTP_PROXY \
+	CONFIG_NGINX_HTTP_FASTCGI \
+	CONFIG_NGINX_HTTP_UWSGI \
+	CONFIG_NGINX_HTTP_SCGI \
+	CONFIG_NGINX_HTTP_MEMCACHED \
+	CONFIG_NGINX_HTTP_LIMIT_CONN \
+	CONFIG_NGINX_HTTP_LIMIT_REQ \
+	CONFIG_NGINX_HTTP_EMPTY_GIF \
+	CONFIG_NGINX_HTTP_BROWSER \
+	CONFIG_NGINX_HTTP_UPSTREAM_HASH \
+	CONFIG_NGINX_HTTP_UPSTREAM_IP_HASH \
+	CONFIG_NGINX_HTTP_UPSTREAM_LEAST_CONN \
+	CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE \
+	CONFIG_NGINX_HTTP_UPSTREAM_ZONE \
+	CONFIG_NGINX_HTTP_CACHE \
+	CONFIG_NGINX_PCRE
+
+include $(INCLUDE_DIR)/package.mk
+
+define Package/nginx-zyx
+  SECTION:=net
+  CATEGORY:=Network
+  SUBMENU:=Web Servers/Proxies
+  TITLE:=Nginx web server
+  URL:=http://nginx.org/
+  DEPENDS:=+NGINX_PCRE:libpcre +(NGINX_SSL||NGINX_HTTP_CACHE||NGINX_HTTP_AUTH_BASIC):libopenssl +NGINX_HTTP_GZIP:zlib +libpthread
+  MENU:=1
+endef
+
+define Package/nginx-zyx/description
+ nginx is an HTTP and reverse proxy server, as well as a mail proxy server,
+ written by Igor Sysoev.
+endef
+
+define Package/nginx-zyx/config
+  source "$(SOURCE)/Config.in"
+endef
+
+config_files=nginx.conf mime.types fastcgi_params koi-utf koi-win win-utf
+
+define Package/nginx-zyx/conffiles
+/opt/etc/nginx/
+endef
+
+ADDITIONAL_MODULES:=
+ifeq ($(CONFIG_NGINX_NAXSI),y)
+  ADDITIONAL_MODULES += --add-module=$(PKG_BUILD_DIR)/nginx-naxsi/naxsi_src
+endif
+
+ADDITIONAL_MODULES:=
+ifeq ($(CONFIG_IPV6),y)
+  ADDITIONAL_MODULES += --with-ipv6
+endif
+ifeq ($(CONFIG_NGINX_STUB_STATUS),y)
+  ADDITIONAL_MODULES += --with-http_stub_status_module
+endif
+ifeq ($(CONFIG_NGINX_FLV),y)
+  ADDITIONAL_MODULES += --with-http_flv_module
+endif
+ifeq ($(CONFIG_NGINX_SSL),y)
+  ADDITIONAL_MODULES += --with-http_ssl_module
+endif
+ifeq ($(CONFIG_NGINX_DAV),y)
+  ADDITIONAL_MODULES += --with-http_dav_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_CACHE),y)
+  ADDITIONAL_MODULES += --without-http-cache
+endif
+ifneq ($(CONFIG_NGINX_PCRE),y)
+  ADDITIONAL_MODULES += --without-pcre
+endif
+ifneq ($(CONFIG_NGINX_HTTP_CHARSET),y)
+  ADDITIONAL_MODULES += --without-http_charset_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_GZIP),y)
+  ADDITIONAL_MODULES += --without-http_gzip_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_SSI),y)
+  ADDITIONAL_MODULES += --without-http_ssi_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_USERID),y)
+  ADDITIONAL_MODULES += --without-http_userid_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_ACCESS),y)
+  ADDITIONAL_MODULES += --without-http_access_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_AUTH_BASIC),y)
+  ADDITIONAL_MODULES += --without-http_auth_basic_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_AUTOINDEX),y)
+  ADDITIONAL_MODULES += --without-http_autoindex_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_GEO),y)
+  ADDITIONAL_MODULES += --without-http_geo_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_MAP),y)
+  ADDITIONAL_MODULES += --without-http_map_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_SPLIT_CLIENTS),y)
+  ADDITIONAL_MODULES += --without-http_split_clients_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_REFERER),y)
+  ADDITIONAL_MODULES += --without-http_referer_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_REWRITE),y)
+  ADDITIONAL_MODULES += --without-http_rewrite_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_PROXY),y)
+  ADDITIONAL_MODULES += --without-http_proxy_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_FASTCGI),y)
+  ADDITIONAL_MODULES += --without-http_fastcgi_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_UWSGI),y)
+  ADDITIONAL_MODULES += --without-http_uwsgi_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_SCGI),y)
+  ADDITIONAL_MODULES += --without-http_scgi_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_MEMCACHED),y)
+  ADDITIONAL_MODULES += --without-http_memcached_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_LIMIT_CONN),y)
+  ADDITIONAL_MODULES += --without-http_limit_conn_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_LIMIT_REQ),y)
+  ADDITIONAL_MODULES += --without-http_limit_req_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_EMPTY_GIF),y)
+  ADDITIONAL_MODULES += --without-http_empty_gif_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_BROWSER),y)
+  ADDITIONAL_MODULES += --without-http_browser_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_UPSTREAM_HASH),y)
+  ADDITIONAL_MODULES += --without-http_upstream_hash_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_UPSTREAM_IP_HASH),y)
+  ADDITIONAL_MODULES += --without-http_upstream_ip_hash_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_UPSTREAM_LEAST_CONN),y)
+  ADDITIONAL_MODULES += --without-http_upstream_least_conn_module
+endif
+ifneq ($(CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE),y)
+  ADDITIONAL_MODULES += --without-http_upstream_keepalive_module
+endif
+
+define Build/Configure
+	( cd $(PKG_BUILD_DIR) ; \
+		./configure \
+			--crossbuild=Linux::$(ARCH) \
+			--prefix=/opt \
+			--modules-path=/opt/lib/nginx \
+			--conf-path=/opt/etc/nginx/nginx.conf \
+			$(ADDITIONAL_MODULES) \
+			--error-log-path=/opt/var/log/nginx/error.log \
+			--pid-path=/opt/var/run/nginx.pid \
+			--lock-path=/opt/var/lock/nginx.lock \
+			--http-log-path=/opt/var/log/nginx/access.log \
+			--http-client-body-temp-path=/opt/var/lib/nginx/body \
+			--http-proxy-temp-path=/opt/var/lib/nginx/proxy \
+			--http-fastcgi-temp-path=/opt/var/lib/nginx/fastcgi \
+			--http-uwsgi-temp-path=/opt/var/lib/nginx/uwsgi \
+			--http-scgi-temp-path=/opt/var/lib/nginx/scgi \
+			--with-cc="$(TARGET_CC)" \
+			--with-cc-opt="$(TARGET_CPPFLAGS) $(TARGET_CFLAGS)" \
+			--with-ld-opt="$(TARGET_LDFLAGS)" \
+			--without-http_upstream_zone_module \
+	)
+endef
+
+define Package/nginx-zyx/install
+	$(INSTALL_DIR) $(1)/opt/sbin
+	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/sbin/nginx $(1)/opt/sbin/
+	$(INSTALL_DIR) $(1)/opt/etc/nginx
+	$(INSTALL_DATA) $(addprefix $(PKG_INSTALL_DIR)/opt/etc/nginx/,$(config_files)) $(1)/opt/etc/nginx/
+	$(INSTALL_DIR) $(1)/opt/etc/init.d
+	$(INSTALL_BIN) ./files/S80nginx $(1)/opt/etc/init.d
+	$(INSTALL_DIR) $(1)/opt/share/nginx/html
+	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/{index,50x}.html $(1)/opt/share/nginx/html
+	$(INSTALL_DIR) $(1)/opt/var/{run,lock} $(1)/opt/var/log/nginx $(1)/opt/lib/nginx
+	$(INSTALL_DIR) $(1)/opt/var/lib/nginx/{body,proxy,fastcgi}
+ifeq ($(CONFIG_NGINX_NAXSI),y)
+	$(INSTALL_DIR) $(1)/opt/etc/nginx
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/nginx-naxsi/naxsi_config/naxsi_core.rules $(1)/opt/etc/nginx
+	chmod 0640 $(1)/opt/etc/nginx/naxsi_core.rules
+endif
+	$(if $(CONFIG_NGINX_NAXSI),$($(INSTALL_BIN) $(PKG_BUILD_DIR)/nginx-naxsi/naxsi_config/naxsi_core.rules $(1)/etc/nginx))
+	$(if $(CONFIG_NGINX_NAXSI),$(chmod 0640 $(1)/opt/etc/nginx/naxsi_core.rules))
+endef
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	$(if $(CONFIG_NGINX_NAXSI),$(call Prepare/nginx-naxsi))
+endef
+
+define Download/nginx-naxsi
+	VERSION:=6358c3d2e68a0c9e3ad11661c2a1f63fadc9b4f2
+	SUBDIR:=nginx-naxsi
+	FILE:=nginx-naxsi-module-$(PKG_VERSION)-$$(VERSION).tar.gz
+	URL:=https://github.com/nbs-system/naxsi.git
+	PROTO:=git
+endef
+
+define  Prepare/nginx-naxsi
+	$(eval $(call Download,nginx-naxsi))
+	gzip -dc $(DL_DIR)/$(FILE) | tar -C $(PKG_BUILD_DIR) $(TAR_OPTIONS)
+endef
+
+$(eval $(call BuildPackage,nginx-zyx))
