@@ -45,7 +45,7 @@ MAKE_FLAGS += \
 define Package/psmisc-be/install
 	$(INSTALL_DIR) $(1)/opt/bin
 	$(INSTALL_BIN) \
-		$(PKG_INSTALL_DIR)/opt/bin/{fuser,killall,prtstat,pstree,peekfd} \
+		$(PKG_INSTALL_DIR)/opt/bin/{fuser,killall,prtstat,pstree} \
 		$(1)/opt/bin/
 endef
 
