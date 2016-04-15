@@ -178,7 +178,7 @@ setInterval("fresh()",30000);
 <div class="custpage">
 
   <?php write_side_bar(); ?>
-    <table class="status"><tr class="even"><th class="left"><?php $inf=shell_exec("/sbin/ifconfig ".$iface." | grep inet"); print "$iface_title[$iface] ($iface) $inf";?></th></tr>
+    <table class="status"><tr class="even"><th class="left"><?php $inf=shell_exec("/opt/sbin/ifconfig ".$iface." | grep inet"); print "$iface_title[$iface] ($iface) $inf";?></th></tr>
     <?php
     $graph_params = "if=$iface&amp;page=$page&amp;style=$style";
     if ($page != 's')
