@@ -3,7 +3,7 @@
 # Working dir should stay in feeds/keendev
 SCRIPT_DIR=$(dirname $0)
 ROOT_DIR=$SCRIPT_DIR/installer_root
-BUILD_DIR=$SCRIPT_DIR/../../build_dir/target-mips_mips32r2_uClibc-*
+BUILD_DIR=$SCRIPT_DIR/../../../build_dir/target-mips_mips32r2_uClibc-*
 INSTALLER=$SCRIPT_DIR/installer-keenbe-of.tar.gz
 
 [ -d $ROOT_DIR ] && rm -fr $ROOT_DIR
@@ -36,7 +36,7 @@ cp -r $BUILD_DIR/busybox-*/ipkg-install/opt $ROOT_DIR
 #chmod +x $ROOT_DIR/opt/bin/dots.sh
 
 # Adding dummie SSH keys to avoid dropbear post-install timeout
-#mkdir -p $ROOT_DIR/opt/etc/dropbear
+mkdir -p $ROOT_DIR/opt/etc/dropbear
 touch $ROOT_DIR/opt/etc/dropbear/dropbear_ecdsa_host_key
 touch $ROOT_DIR/opt/etc/dropbear/dropbear_rsa_host_key
 
