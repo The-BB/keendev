@@ -40,8 +40,8 @@ define Build/Compile
 endef
 
 define Package/ext-ui-lighttpd/install
-	$(INSTALL_DIR) $(1)/opt/{etc,share}
-	$(CP) ./files/{etc,share} $(1)/opt/
+	$(INSTALL_DIR) $(1)/opt/root
+	$(CP) ./files/ext-ui-l.tar.gz $(1)/opt/root
 endef
 
 define Package/ext-ui-lighttpd/postinst
@@ -51,6 +51,12 @@ logger "Welcome to Extended GUI installer"
 
 #logger "Creating system backup..."
 #tar cvzf /opt/backup-`date "+%Y-%m-%d"`.tar.gz -C /opt/ etc share var
+
+cd /opt/root
+tar -xzf ext-ui-l.tar.gz
+cp -rf ./opt/* /opt/
+rm -rf /opt/root/opt
+rm -rf /opt/root/ext-ui-l.tar.gz
 
 logger "Executing post-installation script..."
 vnstat -u -i br0
