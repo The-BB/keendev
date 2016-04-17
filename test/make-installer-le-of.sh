@@ -48,6 +48,7 @@ chmod +x $ROOT_DIR/opt/etc/init.d/doinstall
 # Adding opkg&opkg.conf
 cp -r $BUILD_DIR/opkg-*/opkg-*/ipkg-keenle/opkg/opt $ROOT_DIR
 cp -r $SCRIPT_DIR/opkg-keenle.conf $ROOT_DIR/opt/etc/opkg.conf
+chmod 644 $ROOT_DIR/opt/etc/opkg.conf
 
 # copy strip version
 cp -fr $BUILD_DIR/busybox-*/ipkg-keenle/busybox/opt $ROOT_DIR
