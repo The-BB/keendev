@@ -20,7 +20,7 @@ define Package/ext-ui-nginx
   +php5-mod-curl +php5-mod-dom +php5-mod-exif +php5-mod-gd \
   +php5-mod-json +php5-mod-mbstring +php5-mod-session \
   +php5-mod-simplexml +php5-mod-xml +php5-mod-xmlreader \
-  +php5-mod-xmlwriter +php5-mod-zip +vnstat
+  +php5-mod-xmlwriter +php5-mod-zip +vnstat +shellinabox
   TITLE:=Easy installation script for extended web UI
 endef
 
@@ -72,9 +72,10 @@ read wish_to_start
 [ -z "$$wish_to_start" ] && wish_to_start=y
 if [ "$$wish_to_start" == "y" ]
 then
-    /opt/etc/init.d/S30php-fcgi start
     /opt/etc/init.d/S32vnstat start
+    /opt/etc/init.d/S79php-fcgi start
     /opt/etc/init.d/S80nginx start
+    /opt/etc/init.d/S88shellinaboxd start
 fi
 endef
 
