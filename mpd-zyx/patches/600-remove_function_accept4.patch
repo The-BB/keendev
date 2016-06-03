@@ -1,0 +1,11 @@
+--- a/configure
++++ b/configure
+@@ -6329,7 +6329,7 @@
+ 
+ 
+ if test x$host_is_linux = xyes; then
+-	for ac_func in pipe2 accept4
++	for ac_func in pipe2
+ do :
+   as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ ac_fn_c_check_func "$LINENO" "$ac_func" "$as_ac_var"
