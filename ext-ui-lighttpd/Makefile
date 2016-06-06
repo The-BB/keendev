@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-lighttpd
 PKG_VERSION:=0.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -18,9 +18,9 @@ define Package/ext-ui-lighttpd
   CATEGORY:=test
   DEPENDS:=+curl +lighttpd +lighttpd-mod-access +lighttpd-mod-accesslog \
   +lighttpd-mod-auth +lighttpd-mod-cgi +lighttpd-mod-fastcgi \
-  +lighttpd-mod-redirect +lighttpd-mod-rewrite +ndmq +php5 \
-  +php5-cli +php5-fastcgi +php5-mod-curl +php5-mod-dom \
-  +php5-mod-exif +php5-mod-gd +php5-mod-json +php5-mod-mbstring \
+  +lighttpd-mod-redirect +lighttpd-mod-rewrite +ndmq +php5-cli \
+  +php5-fastcgi +php5-mod-curl +php5-mod-dom +php5-mod-exif \
+  +php5-mod-gd +php5-mod-json +php5-mod-mbstring +php5-mod-session \
   +php5-mod-simplexml +php5-mod-xml +php5-mod-xmlreader \
   +php5-mod-xmlwriter +php5-mod-zip +vnstat +shellinabox
   TITLE:=Easy installation script for extended web UI
