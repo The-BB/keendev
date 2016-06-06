@@ -9,14 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-nginx
 PKG_VERSION:=0.1
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/ext-ui-nginx
   SECTION:=test
   CATEGORY:=test
-  DEPENDS:=+curl +nginx-zyx +php5 +php5-cli +php5-fastcgi \
+  DEPENDS:=+curl +nginx-zyx +php5-cli +php5-fastcgi \
   +php5-mod-curl +php5-mod-dom +php5-mod-exif +php5-mod-gd \
   +php5-mod-json +php5-mod-mbstring +php5-mod-session \
   +php5-mod-simplexml +php5-mod-xml +php5-mod-xmlreader \
