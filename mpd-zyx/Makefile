@@ -10,9 +10,9 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mpd
 PKG_VERSION:=0.19.14
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
-PKG_SOURCE:=mpd-$(PKG_VERSION).tar.xz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://www.musicpd.org/download/mpd/0.19/
 PKG_MD5SUM:=9f99340ec6b77bea4ba3729e3b76fd7c
 PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>
@@ -207,9 +207,10 @@ endif
 
 define Package/mpd-zyx/install
 	$(INSTALL_DIR) $(1)/opt/bin
+	$(INSTALL_DIR) $(1)/opt/var/music
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/opt/bin/mpd $(1)/opt/bin/
 	$(INSTALL_DIR) $(1)/opt/etc
-	$(INSTALL_CONF) $(PKG_BUILD_DIR)/doc/mpdconf.example $(1)/opt/etc/mpd.conf
+	$(INSTALL_CONF) ./files/mpd.conf $(1)/opt/etc/
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/S89mpd $(1)/opt/etc/init.d/
 endef
