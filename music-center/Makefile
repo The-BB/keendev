@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=music-center
 PKG_VERSION:=0.1
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 include $(INCLUDE_DIR)/package.mk
 
