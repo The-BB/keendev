@@ -1,8 +1,6 @@
 #!/opt/bin/sh
 # Copyright (C) 2015 NDM Systems, McMCC
 
-export TZ=`cat /etc/TZ | tail -n 1`
-
 SERV_DIR=/opt/etc/default/usb_services/$usb_subsystem
 
 start() {
