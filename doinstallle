@@ -1,13 +1,12 @@
 #!/opt/bin/sh
 
-export TZ=`cat /etc/TZ | tail -n 1`
+ln -sf /etc/TZ /opt/etc/TZ
 export PATH=/opt/sbin:/opt/bin:$PATH
 export LANG='ru_RU.UTF-8'
 export LC_ALL='ru_RU.UTF-8'
 unset LD_LIBRARY_PATH
 unset LD_PRELOAD
-
-URL=http://ndm.zyxmon.org/binaries/keenle/installer
+unset TZ
 
 case $(mount | grep 'on /opt' | cut -d ' ' -f 5) in
     ext2|ext3)
