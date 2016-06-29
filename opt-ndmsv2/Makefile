@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=opt-ndmsv2
 PKG_VERSION:=1.0
-PKG_RELEASE:=2
+PKG_RELEASE:=1
 PKG_FLAGS:=essential
 
 include $(INCLUDE_DIR)/package.mk
@@ -43,7 +43,7 @@ define Package/opt-ndmsv2/install
 	$(INSTALL_BIN) ./files/profile $(1)/opt/etc
 	$(INSTALL_DATA) ./files/rc.func $(1)/opt/etc/init.d
 	touch $(1)/opt/etc/ld.so.conf
-	$(INSTALL_DATA) ./files/{shells,passwd,group,screenrc} $(1)/opt/etc
+	$(INSTALL_DATA) ./files/{group,passwd,shells,screenrc} $(1)/opt/etc
 	$(INSTALL_DIR) $(1)/opt/home $(1)/opt/root $(1)/opt/etc/skel
 	$(INSTALL_DATA) ./files/.profile $(1)/opt/etc/skel
 	$(INSTALL_DATA) ./files/.profile $(1)/opt/root
@@ -56,9 +56,6 @@ endef
 
 define Package/opt-ndmsv2/postinst
 #!/bin/sh
-
-sed -i 's!^export TZ!#export TZ!g' /opt/etc/skel/.profile
-sed -i 's!^export TZ!#export TZ!g' /opt/root/.profile
 
 echo -n "Updating /opt/etc/ld.so.cache... "
 /opt/bin/ldconfig > /dev/null 2>&1
