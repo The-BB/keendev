@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=opt-ndmsv2
 PKG_VERSION:=1.0
-PKG_RELEASE:=1
+PKG_RELEASE:=3
 PKG_FLAGS:=essential
 
 include $(INCLUDE_DIR)/package.mk
@@ -37,6 +37,14 @@ endef
 define Build/Compile
 endef
 
+define Package/opt-ndmsv2/conffiles
+/opt/etc/group
+/opt/etc/passwd
+/opt/etc/profile
+/opt/etc/shells
+/opt/root/.profile
+endef
+
 define Package/opt-ndmsv2/install
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
 	$(INSTALL_BIN) ./files/rc.unslung $(1)/opt/etc/init.d
@@ -56,6 +64,8 @@ endef
 
 define Package/opt-ndmsv2/postinst
 #!/bin/sh
+
+sed -i 's!^export TZ!#export TZ!g' /opt/root/.profile
 
 echo -n "Updating /opt/etc/ld.so.cache... "
 /opt/bin/ldconfig > /dev/null 2>&1
