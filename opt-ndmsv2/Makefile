@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=opt-ndmsv2
 PKG_VERSION:=1.0
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 PKG_FLAGS:=essential
 
 include $(INCLUDE_DIR)/package.mk
@@ -59,7 +59,7 @@ define Package/opt-ndmsv2/install
 	$(INSTALL_DATA) ./files/.inputrc $(1)/opt/root
 	$(INSTALL_DIR) $(1)/opt/{bin,sbin,share,tmp,usr} \
 	    $(1)/opt/var/{log,lock,run} \
-	    $(1)/opt/etc/ndm/{wan,user,netfilter,usb,time,fs}.d
+	    $(1)/opt/etc/ndm/{button,fs,netfilter,time,usb,user,wan}.d
 endef
 
 define Package/opt-ndmsv2/postinst
