@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx
-PKG_VERSION:=1.10.0
-PKG_RELEASE:=2
+PKG_VERSION:=1.11.4
+PKG_RELEASE:=1
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://nginx.org/download/
-PKG_MD5SUM:=c184c873d2798c5ba92be95ed1209c02
+PKG_MD5SUM:=92666d60410f429ddbdb10060369a480
 PKG_MAINTAINER:=Thomas Heil <heil@terminal-consulting.de>
 PKG_LICENSE:=2-clause BSD-like license
 
@@ -255,7 +255,7 @@ define Build/Prepare
 endef
 
 define Download/nginx-naxsi
-	VERSION:=5ab2309f0dc93d33e1443a15db519f8bfed8b455
+	VERSION:=f3f3d96bd25523e9c3b4932371c1a65e5ef32733
 	SUBDIR:=nginx-naxsi
 	FILE:=nginx-naxsi-module-$(PKG_VERSION)-$$(VERSION).tar.gz
 	URL:=https://github.com/nbs-system/naxsi.git
@@ -268,7 +268,7 @@ define  Prepare/nginx-naxsi
 endef
 
 define Download/lua-nginx
-	VERSION:=1967998b0eedab1ff51bff8fafa5fc3db47976aa
+	VERSION:=61621e0d3afef0eb6ae40c05fda3d8c0554baf90
 	SUBDIR:=lua-nginx
 	FILE:=lua-nginx-module-$(PKG_VERSION)-$$(VERSION).tar.gz
 	URL:=https://github.com/openresty/lua-nginx-module.git
