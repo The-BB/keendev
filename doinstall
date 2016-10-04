@@ -28,17 +28,26 @@ esac
 
 logger '[1/5] Начало развёртывания системы Entware-Keenetic...'
 
+# This is for opkg only. The other folders will be created from opt-ndmsv2 package
+# Только для opkg. Остальные папки будут созданы пакетом opt-ndmsv1/2
+logger 'Info: Создание папок...'
+
+for folder in lib/opkg tmp var/lock; do
+    mkdir -p /opt/$folder
+done
+
 # Fix for multiuser environment
 chmod 777 /opt/tmp
 
-logger '[2/5] Обновление списка пакетов...'
+logger '[2/5] Загрузка и установка базовых пакетов...'
 opkg update
+opkg install opt-ndmsv2 dropbear ndmq
 
 if [ $? -eq 0 ] ; then
-    logger 'Info: Список пакетов обновлен'
+    logger 'Info: Установка пакетов прошла успешно! Продолжаем...'
   else
-    logger 'Warning: Ошибка загрузки? Нет соединения с интернет? Сервер не работает?'
-    logger 'Обновите позже. Продолжим...'
+    logger 'Critical error: Ошибка загрузки? Нет соединения с интернет? Сервер не работает?'
+    logger 'Выход из установки...'
     exit 1
 fi
 
@@ -62,10 +71,7 @@ dbkey () {
 dbkey rsa
 dbkey ecdsa
 
-mv -f /opt/home/* /opt/etc/init.d
-
-logger '[5/5] Установка Entware-Keenetic завершена!'
-logger 'Запуск dropbear...'
+logger '[5/5] Установка Entware-Keenetic завершена! Запуск dropbear...'
 dropbear -p 22 -a
 
 logger 'Готово!!!'

@@ -3,7 +3,7 @@
 # Working dir should stay in feeds/keendev
 SCRIPT_DIR=$(dirname $0)
 ROOT_DIR=$SCRIPT_DIR/installer_root
-BUILD_DIR=$SCRIPT_DIR/../../../build_dir/target-mipsel_mips32r2_uClibc-*
+BUILD_DIR=$SCRIPT_DIR/../../build_dir/target-mipsel_mips32r2_uClibc-*
 INSTALLER=$SCRIPT_DIR/installer-keenle-of.tar.gz
 
 [ -d $ROOT_DIR ] && rm -fr $ROOT_DIR
@@ -42,7 +42,7 @@ touch $ROOT_DIR/opt/etc/dropbear/dropbear_rsa_host_key
 
 # Adding install script
 mkdir -p $ROOT_DIR/opt/etc/init.d
-cp $SCRIPT_DIR/doinstallle-of $ROOT_DIR/opt/etc/init.d/doinstall
+cp $SCRIPT_DIR/doinstall-of $ROOT_DIR/opt/etc/init.d/doinstall
 chmod +x $ROOT_DIR/opt/etc/init.d/doinstall
 
 # Adding opkg&opkg.conf

@@ -28,7 +28,7 @@ touch $ROOT_DIR/opt/etc/dropbear/dropbear_rsa_host_key
 
 # Adding install script
 mkdir -p $ROOT_DIR/opt/etc/init.d
-cp $SCRIPT_DIR/doinstallbe $ROOT_DIR/opt/etc/init.d/doinstall
+cp $SCRIPT_DIR/doinstall $ROOT_DIR/opt/etc/init.d/
 chmod +x $ROOT_DIR/opt/etc/init.d/doinstall
 
 # Adding opkg&opkg.conf
