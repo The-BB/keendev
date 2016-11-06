@@ -15,7 +15,7 @@ include $(INCLUDE_DIR)/package.mk
 
 define Package/music-center
 	SECTION:=sound
-	CATEGORY:=test
+	CATEGORY:=keendev
 	DEPENDS:=+alsa-utils +mpd-full-zyx +mpg123 +ympd
 	TITLE:=configs and scripts files for music-center
 endef
