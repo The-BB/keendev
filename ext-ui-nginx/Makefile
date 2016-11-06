@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2016
+# Copyright (C) 2016 Entware
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,23 +9,23 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-nginx
 PKG_VERSION:=0.1
-PKG_RELEASE:=4
+PKG_RELEASE:=5a
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/ext-ui-nginx
-  SECTION:=test
-  CATEGORY:=test
-  DEPENDS:=+curl +nginx-zyx +php5-cli +php5-fastcgi \
-  +php5-mod-curl +php5-mod-dom +php5-mod-exif +php5-mod-gd \
-  +php5-mod-json +php5-mod-mbstring +php5-mod-session \
-  +php5-mod-simplexml +php5-mod-xml +php5-mod-xmlreader \
-  +php5-mod-xmlwriter +php5-mod-zip +vnstat +shellinabox
-  TITLE:=Easy installation script for extended web UI
+ SECTION:=UI
+ CATEGORY:=keendev
+ DEPENDS:=+curl +nginx-zyx +php5-cli +php5-fastcgi +php5-mod-curl \
+	+php5-mod-dom +php5-mod-exif +php5-mod-gd +php5-mod-json \
+	+php5-mod-mbstring +php5-mod-session +php5-mod-simplexml \
+	+php5-mod-xml +php5-mod-xmlreader +php5-mod-xmlwriter \
+	+php5-mod-zip +vnstat +shellinabox
+ TITLE:=Easy installation script for extended web UI (php5*)
 endef
 
 define Package/ext-ui-nginx/description
- PHP version extended web user interface (ext-UI) for keenetic routers with NDMSv2
+ PHP (v5*) version extended web user interface (ext-UI) for keenetic routers with NDMSv2
 endef
 
 define Build/Prepare
