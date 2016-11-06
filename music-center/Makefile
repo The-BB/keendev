@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=music-center
 PKG_VERSION:=0.1
-PKG_RELEASE:=2
+PKG_RELEASE:=2a
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -36,7 +36,7 @@ endef
 
 define Package/music-center/install
 	$(INSTALL_DIR) $(1)/opt/etc/default/usb_services/sound
-	$(INSTALL_DATA) ./files/asound.conf $(1)/opt/etc/
+	$(INSTALL_DATA) ./files/{asound,mpd}.conf $(1)/opt/etc/
 	$(INSTALL_DIR) $(1)/opt/etc/ndm/usb.d
 	$(INSTALL_BIN) ./files/001-audio.sh $(1)/opt/etc/ndm/usb.d/
 endef
