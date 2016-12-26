@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2007-2016 OpenWrt.org
+# Copyright (C) 2015-2016 Ted Hess
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -9,12 +9,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mpd
-PKG_VERSION:=0.19.17
-PKG_RELEASE:=1
+PKG_VERSION:=0.19.19
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=http://www.musicpd.org/download/mpd/0.19/
-PKG_MD5SUM:=47e13f3f160bf94e7a897c5a48990f3d
+PKG_MD5SUM:=6e4fca9a9c26dad08b61bac9a91802db
 PKG_MAINTAINER:=Ted Hess <thess@kitschensync.net>
 
 PKG_LICENSE:=GPL-2.0
@@ -39,8 +39,9 @@ define Package/mpd-zyx/Default
   TITLE:=Music Player Daemon
   URL:=http://www.musicpd.org/
   DEPENDS:= +glib2 +libcurl +libpthread +libmpdclient +libstdcpp $(ICONV_DEPENDS) \
-	    +libflac +BUILD_PATENTED:libmad +libvorbisidec +alsa-lib \
+	    +libflac +BUILD_PATENTED:libmad +libvorbisidec +AUDIO_SUPPORT:alsa-lib \
             +boost +boost-container +libexpat
+  CONFLICTS:=mpd
 endef
 
 define Package/mpd-zyx/Default/description
@@ -115,13 +116,14 @@ CONFIGURE_ARGS += \
 	--disable-ao \
 	--disable-bzip2 \
 	--disable-fluidsynth \
+	--disable-wildmidi \
 	--disable-gme \
 	--enable-inotify \
 	--disable-icu \
 	--disable-eventfd \
 	--disable-iso9660 \
 	--disable-jack \
-	--disable-lame-encoder \
+	--disable-roar \
 	--disable-libwrap \
 	--disable-lsr \
 	--disable-mikmod \
@@ -134,7 +136,9 @@ CONFIGURE_ARGS += \
 	--disable-sidplay \
 	--disable-solaris-output \
 	--disable-sqlite \
+	--disable-lame-encoder \
 	--disable-twolame-encoder \
+	--disable-shine-encoder \
 	--enable-wave-encoder \
 	--disable-wavpack \
 	--disable-wildmidi \
@@ -146,7 +150,7 @@ CONFIGURE_ARGS += \
 	--enable-flac \
 	--enable-httpd-output \
 	$(call autoconf_bool,CONFIG_BUILD_PATENTED,mad) \
-	--enable-alsa \
+	$(call autoconf_bool,CONFIG_AUDIO_SUPPORT,alsa) \
 	--enable-tcp \
 	--enable-un \
 	--disable-epoll \
