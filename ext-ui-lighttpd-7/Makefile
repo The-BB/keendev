@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-lighttpd-7
 PKG_VERSION:=0.1
-PKG_RELEASE:=1a
+PKG_RELEASE:=2
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -17,11 +17,11 @@ define Package/ext-ui-lighttpd-7
  SECTION:=UI
  CATEGORY:=keendev
  DEPENDS:=+curl +lighttpd +lighttpd-mod-access +lighttpd-mod-accesslog \
-	+lighttpd-mod-auth +lighttpd-mod-cgi +lighttpd-mod-fastcgi \
-	+lighttpd-mod-redirect +lighttpd-mod-rewrite +ndmq +php7-cli \
-	+php7-fastcgi +php7-mod-curl +php7-mod-dom +php7-mod-exif \
-	+php7-mod-gd +php7-mod-json +php7-mod-mbstring +php7-mod-session \
-	+php7-mod-simplexml +php7-mod-xml +php7-mod-xmlreader \
+	+lighttpd-mod-auth +lighttpd-mod-authn_file +lighttpd-mod-cgi \
+	+lighttpd-mod-fastcgi +lighttpd-mod-redirect +lighttpd-mod-rewrite \
+	+ndmq +php7-cli +php7-fastcgi +php7-mod-curl +php7-mod-dom \
+	+php7-mod-exif +php7-mod-gd +php7-mod-json +php7-mod-mbstring \
+	+php7-mod-session +php7-mod-simplexml +php7-mod-xml +php7-mod-xmlreader \
 	+php7-mod-xmlwriter +php7-mod-zip +vnstat +shellinabox
  TITLE:=Easy installation script for extended web UI (php7*)
 endef
