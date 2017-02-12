@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-nginx-7
-PKG_VERSION:=0.1
-PKG_RELEASE:=1a
+PKG_VERSION:=0.2
+PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
