@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-nginx
-PKG_VERSION:=0.1
-PKG_RELEASE:=5a
+PKG_VERSION:=0.2
+PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -25,7 +25,7 @@ define Package/ext-ui-nginx
 endef
 
 define Package/ext-ui-nginx/description
- PHP (v5*) version extended web user interface (ext-UI) for keenetic routers with NDMSv2
+ PHP (v.5*) version extended web user interface (ext-UI) for keenetic routers with NDMSv2
 endef
 
 define Build/Prepare
