@@ -32,7 +32,7 @@ cp $SCRIPT_DIR/doinstall $ROOT_DIR/opt/etc/init.d/
 chmod +x $ROOT_DIR/opt/etc/init.d/doinstall
 
 # Adding opkg&opkg.conf
-cp -r $BUILD_DIR/opkg-*/opkg-*/ipkg-keenle/opkg/opt $ROOT_DIR
+cp -r $BUILD_DIR/linux-keenle/opkg-*/ipkg-keenle/opkg/opt $ROOT_DIR
 cp -r $SCRIPT_DIR/opkg-keenle.conf $ROOT_DIR/opt/etc/opkg.conf
 chmod 644 $ROOT_DIR/opt/etc/opkg.conf
 
