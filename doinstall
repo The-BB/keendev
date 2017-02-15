@@ -6,6 +6,7 @@ export LANG='ru_RU.UTF-8'
 export LC_ALL='ru_RU.UTF-8'
 unset LD_LIBRARY_PATH
 unset LD_PRELOAD
+unset LD_BIND_NOW
 unset TZ
 
 case $(mount | grep 'on /opt' | cut -d ' ' -f 5) in
