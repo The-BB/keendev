@@ -40,7 +40,6 @@ if [ $? -eq 0 ] ; then
   else
     logger 'Warning: Ошибка загрузки? Нет соединения с интернет? Сервер не работает?'
     logger 'Обновите позже. Продолжим...'
-    exit 1
 fi
 
 ldconfig > /dev/null 2>&1
