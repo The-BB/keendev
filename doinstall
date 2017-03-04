@@ -77,10 +77,8 @@ logger -t installer '[3/5] Генерация SSH-ключей...'
     done
     logger -t installer "Info: Ключ rsa создан"
 
-logger -t installer '[4/5] Установка Entware-Keenetic завершена! Сохранение временной зоны и запуск dropbear...'
-
-timezone=`ndmq -p "show running-config" -P message | awk '/timezone/{print $3}'`
-ln -sf /opt/share/zoneinfo/$timezone  /opt/etc/localtime
+logger -t installer '[4/5] Установка Entware-Keenetic завершена!'
+logger -t installer 'Запуск dropbear...'
 dropbear -p 22 -a
 
 logger -t installer '[5/5] Настройка сценария запуска для прошивки NDMS...'
