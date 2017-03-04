@@ -36,8 +36,8 @@ opkg update
 if [ $? -eq 0 ] ; then
     logger -t installer 'Info: Список пакетов обновлен'
   else
-    logger -t installer 'Warning: Ошибка загрузки? Нет соединения с интернет? Сервер не работает?'
-    logger -t installer 'Обновите позже. Продолжим...'
+    logger -t installer 'Warning: Ошибка загрузки? Нет соединения с интернетом? Сервер не отвечает?'
+    logger -t installer 'Обновите позже. Продолжаем...'
 fi
 
 ldconfig > /dev/null 2>&1
@@ -64,6 +64,7 @@ logger -t installer '[3/5] Генерация SSH-ключей...'
     done
     logger -t installer "Info: Ключ rsa создан"
 
+# перенос скриптов  
 mv -f /opt/home/* /opt/etc/init.d
 
 logger -t installer '[4/5] Установка Entware-Keenetic завершена!'
