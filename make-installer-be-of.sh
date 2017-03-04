@@ -4,7 +4,7 @@
 SCRIPT_DIR=$(dirname $0)
 ROOT_DIR=$SCRIPT_DIR/installer_root
 BUILD_DIR=$SCRIPT_DIR/../../build_dir/target-mips_mips32r2_uClibc-*
-INSTALLER=$SCRIPT_DIR/installer-keenbe-of.tar.gz
+INSTALLER=$SCRIPT_DIR/offline-installer-keenbe.tar.gz
 
 [ -d $ROOT_DIR ] && rm -fr $ROOT_DIR
 mkdir $ROOT_DIR
@@ -24,7 +24,7 @@ cp -r $BUILD_DIR/opt-ndmsv2-*/ipkg-keenbe/opt-ndmsv2/opt $ROOT_DIR
 cp -r $BUILD_DIR/ndmq-*/ipkg-keenbe/ndmq/opt $ROOT_DIR
 cp -r $BUILD_DIR/libndm-*/ipkg-keenbe/libndm/opt $ROOT_DIR
 cp -r $BUILD_DIR/findutils-*/ipkg-keenbe/findutils/opt $ROOT_DIR
-cp -r $BUILD_DIR/libncurses/ncurses-*/ipkg-keenbe/terminfo/opt $ROOT_DIR
+cp -r $BUILD_DIR/ncurses-*/ipkg-keenbe/terminfo/opt $ROOT_DIR
 #
 mv -f $ROOT_DIR/opt/etc/init.d/* $ROOT_DIR/opt/home
 # Adding busybox

@@ -4,7 +4,7 @@
 SCRIPT_DIR=$(dirname $0)
 ROOT_DIR=$SCRIPT_DIR/installer_root
 BUILD_DIR=$SCRIPT_DIR/../../build_dir/target-mipsel_mips32r2_uClibc-*
-INSTALLER=$SCRIPT_DIR/installer-keenle-of.tar.gz
+INSTALLER=$SCRIPT_DIR/offline-installer-keenle.tar.gz
 
 [ -d $ROOT_DIR ] && rm -fr $ROOT_DIR
 mkdir $ROOT_DIR
@@ -24,7 +24,7 @@ cp -r $BUILD_DIR/opt-ndmsv2-*/ipkg-keenle/opt-ndmsv2/opt $ROOT_DIR
 cp -r $BUILD_DIR/ndmq-*/ipkg-keenle/ndmq/opt $ROOT_DIR
 cp -r $BUILD_DIR/libndm-*/ipkg-keenle/libndm/opt $ROOT_DIR
 cp -r $BUILD_DIR/findutils-*/ipkg-keenle/findutils/opt $ROOT_DIR
-cp -r $BUILD_DIR/libncurses/ncurses-*/ipkg-keenle/terminfo/opt $ROOT_DIR
+cp -r $BUILD_DIR/ncurses-*/ipkg-keenle/terminfo/opt $ROOT_DIR
 #
 mv -f $ROOT_DIR/opt/etc/init.d/* $ROOT_DIR/opt/home
 # Adding busybox
