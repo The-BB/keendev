@@ -48,7 +48,7 @@ opkg install busybox > /dev/null 2>&1
 if [ $? -eq 0 ] ; then
     sleep 5s && logger -t installer 'Info: Установка пакетов прошла успешно! Продолжаем...'
   else
-    logger -t installer 'Critical error: Ошибка загрузки? Нет соединения с интернетом? Сервер не работает?'
+    logger -t installer 'Critical error: Ошибка загрузки? Нет соединения с интернетом? Сервер не отвечает?'
     logger -t installer 'Выход из установки...'
     exit 1
 fi
