@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=nginx
 PKG_VERSION:=1.11.4
-PKG_RELEASE:=1
+PKG_RELEASE:=1a
 
 PKG_SOURCE:=nginx-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://nginx.org/download/
@@ -35,6 +35,7 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_NGINX_HTTP_USERID \
 	CONFIG_NGINX_HTTP_ACCESS \
 	CONFIG_NGINX_HTTP_AUTH_BASIC \
+	CONFIG_NGINX_HTTP_AUTH_REQUEST \
 	CONFIG_NGINX_HTTP_AUTOINDEX \
 	CONFIG_NGINX_HTTP_GEO \
 	CONFIG_NGINX_HTTP_MAP \
@@ -56,9 +57,12 @@ PKG_CONFIG_DEPENDS := \
 	CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE \
 	CONFIG_NGINX_HTTP_UPSTREAM_ZONE \
 	CONFIG_NGINX_HTTP_CACHE \
+	CONFIG_NGINX_HTTP_V2 \
 	CONFIG_NGINX_PCRE \
 	CONFIG_NGINX_NAXSI \
-	CONFIG_NGINX_LUA
+	CONFIG_NGINX_LUA \
+	CONFIG_NGINX_HTTP_REAL_IP \
+	CONFIG_NGINX_HTTP_SECURE_LINK
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -135,6 +139,9 @@ endif
 ifneq ($(CONFIG_NGINX_HTTP_AUTH_BASIC),y)
   ADDITIONAL_MODULES += --without-http_auth_basic_module
 endif
+ifeq ($(CONFIG_NGINX_HTTP_AUTH_REQUEST),y)
+  ADDITIONAL_MODULES += --with-http_auth_request_module
+endif
 ifneq ($(CONFIG_NGINX_HTTP_AUTOINDEX),y)
   ADDITIONAL_MODULES += --without-http_autoindex_module
 endif
@@ -198,6 +205,15 @@ endif
 ifneq ($(CONFIG_NGINX_HTTP_UPSTREAM_KEEPALIVE),y)
   ADDITIONAL_MODULES += --without-http_upstream_keepalive_module
 endif
+ifeq ($(CONFIG_NGINX_HTTP_V2),y)
+  ADDITIONAL_MODULES += --with-http_v2_module
+endif
+ifeq ($(CONFIG_NGINX_HTTP_REAL_IP),y)
+  ADDITIONAL_MODULES += --with-http_realip_module
+endif
+ifeq ($(CONFIG_NGINX_HTTP_SECURE_LINK),y)
+  ADDITIONAL_MODULES += --with-http_secure_link_module
+endif
 
 TARGET_CFLAGS += -fvisibility=hidden -ffunction-sections -fdata-sections -DNGX_LUA_NO_BY_LUA_BLOCK
 TARGET_LDFLAGS += -Wl,--gc-sections
@@ -233,12 +249,11 @@ define Package/nginx-zyx/install
 	$(INSTALL_DIR) $(1)/opt/etc/nginx
 	$(INSTALL_DATA) $(addprefix $(PKG_INSTALL_DIR)/opt/etc/nginx/,$(config_files)) $(1)/opt/etc/nginx/
 	$(INSTALL_DIR) $(1)/opt/etc/init.d
-	$(INSTALL_BIN) ./files/S80nginx $(1)/opt/etc/init.d
+	$(INSTALL_BIN) ./files/S80nginx $(1)/opt/etc/init.d/
 	$(INSTALL_DIR) $(1)/opt/share/nginx/html
 	$(INSTALL_DATA) $(PKG_INSTALL_DIR)/opt/html/{index,50x}.html $(1)/opt/share/nginx/html
 	$(INSTALL_DIR) $(1)/opt/var/{run,lock} $(1)/opt/var/log/nginx $(1)/opt/lib/nginx
 	$(INSTALL_DIR) $(1)/opt/var/lib/nginx/{body,proxy,fastcgi}
-
 ifeq ($(CONFIG_NGINX_NAXSI),y)
 	$(INSTALL_DIR) $(1)/opt/etc/nginx
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/nginx-naxsi/naxsi_config/naxsi_core.rules $(1)/opt/etc/nginx
