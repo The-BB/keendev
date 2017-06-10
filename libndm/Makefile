@@ -1,12 +1,12 @@
 #
-# Copyright (C) 2011-2016 NDM Systems, Inc. http://www.ndmsystems.com/
+# Copyright (C) 2011-2015 NDM Systems, Inc. http://www.ndmsystems.com/
 #
 
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=libndm
 PKG_VERSION:=1.1.0
-PKG_MD5SUM:=337a0c964a21af373020ce06c360da53928878b4
+PKG_REV:=337a0c964a21af373020ce06c360da53928878b4
 PKG_RELEASE:=1
 PKG_LICENSE:=NDM
 
