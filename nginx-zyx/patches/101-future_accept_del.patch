@@ -1,6 +1,6 @@
 --- ./auto/unix
 +++ ./auto/unix
-@@ -384,15 +384,6 @@
+@@ -475,15 +475,6 @@
                    getsockopt(0, IPPROTO_TCP, TCP_INFO, &ti, &optlen)"
  . auto/feature
  
