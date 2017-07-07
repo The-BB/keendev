@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-lighttpd-7
 PKG_VERSION:=0.2
-PKG_RELEASE:=2
+PKG_RELEASE:=2a
 
 include $(INCLUDE_DIR)/package.mk
 
