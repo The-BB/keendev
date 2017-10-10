@@ -9,14 +9,14 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ext-ui-nginx-7
 PKG_VERSION:=0.2
-PKG_RELEASE:=2
+PKG_RELEASE:=2a
 
 include $(INCLUDE_DIR)/package.mk
 
 define Package/ext-ui-nginx-7
  SECTION:=UI
  CATEGORY:=keendev
- DEPENDS:=+curl +nginx-zyx +php7-cli +php7-fastcgi \
+ DEPENDS:=+curl +nginx +php7-cli +php7-fastcgi \
 	+php7-mod-curl +php7-mod-dom +php7-mod-exif +php7-mod-gd \
 	+php7-mod-json +php7-mod-mbstring +php7-mod-session \
 	+php7-mod-simplexml +php7-mod-xml +php7-mod-xmlreader \
